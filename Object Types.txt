@@ -1,0 +1,157 @@
+Object Types.
+-- Location type
+CREATE OR REPLACE TYPE location_type AS OBJECT(
+    street_name VARCHAR2(25),
+    city_name VARCHAR2(25),
+    country_name VARCHAR2(20)
+);
+/
+
+-- Organization type (object inside object)
+CREATE OR REPLACE TYPE organization_type AS OBJECT(
+    org_name VARCHAR2(30),
+    budget NUMBER(10,2),
+    location location_type
+);
+/
+
+-- Staff object type
+CREATE OR REPLACE TYPE staff_type AS OBJECT(
+    staff_id NUMBER,
+    staff_name VARCHAR2(30),
+    salary NUMBER,
+    join_date DATE
+);
+/
+
+
+-- Simple address object (for collections)
+CREATE OR REPLACE TYPE simple_address_obj AS OBJECT(
+    street VARCHAR2(25),
+    city VARCHAR2(25)
+);
+/
+
+-- Product item object (for nested table)
+CREATE OR REPLACE TYPE product_obj AS OBJECT(
+    prod_id NUMBER,
+    prod_name VARCHAR2(50),
+    qty NUMBER,
+    price NUMBER(10,2)
+);
+/
+
+-- Full address object (for nested table)
+CREATE OR REPLACE TYPE full_address_obj AS OBJECT(
+    street VARCHAR2(25),
+    city VARCHAR2(25),
+    country VARCHAR2(20)
+);
+/
+
+
+ 2. TABLES
+ (A) Tables with Object Columns
+CREATE TABLE branch_sites (
+    branch_id NUMBER(6),
+    branch_location location_type
+);
+
+CREATE TABLE organizations (
+    org_id NUMBER,
+    org_details organization_type
+);
+
+ (B) Object Table
+CREATE TABLE staff_members OF staff_type;
+
+(C) Tables Using VARRAY
+CREATE TABLE client_contacts (
+    client_id NUMBER PRIMARY KEY,
+    client_name VARCHAR2(50),
+    phone_list phone_array,
+    email_list email_array,
+    tag_list tag_array
+);
+
+CREATE TABLE real_estate (
+    property_id NUMBER,
+    owner VARCHAR2(50),
+    address_list address_array
+);
+
+
+
+ (D) Tables Using Nested Table
+CREATE TABLE purchase_orders (
+    order_no NUMBER PRIMARY KEY,
+    customer VARCHAR2(50),
+    order_date DATE,
+    product_list product_table_type
+)
+NESTED TABLE product_list STORE AS product_storage;
+
+CREATE TABLE clients (
+    client_id NUMBER PRIMARY KEY,
+    name VARCHAR2(50),
+    address_list address_table_type
+)
+NESTED TABLE address_list STORE AS address_storage;
+
+ 3. VARRAY TYPES
+CREATE OR REPLACE TYPE phone_array AS VARRAY(3) OF VARCHAR2(15);
+/
+
+CREATE OR REPLACE TYPE email_array AS VARRAY(5) OF VARCHAR2(50);
+/
+
+CREATE OR REPLACE TYPE tag_array AS VARRAY(10) OF VARCHAR2(30);
+/
+
+-- VARRAY of objects
+CREATE OR REPLACE TYPE address_array AS VARRAY(5) OF simple_address_obj;
+/
+
+
+
+
+ 4. NESTED TABLE TYPES
+CREATE OR REPLACE TYPE product_table_type AS TABLE OF product_obj;
+/
+
+CREATE OR REPLACE TYPE address_table_type AS TABLE OF full_address_obj;
+/
+
+ 5. SAMPLE INSERTS 
+Insert into Object Column Table
+INSERT INTO branch_sites VALUES (
+    1,
+    location_type('Green Street', 'Kathmandu', 'Nepal')
+);
+Insert into Object Table
+INSERT INTO staff_members VALUES (
+    staff_type(201, 'Ram Sharma', 45000, DATE '2022-05-10')
+);
+
+Insert into VARRAY Table
+INSERT INTO client_contacts VALUES (
+    1,
+    'Sita Karki',
+    phone_array('9800000001', '9800000002'),
+    email_array('sita@gmail.com'),
+    tag_array('Regular', 'Local')
+);
+
+
+
+
+Insert into Nested Table
+INSERT INTO purchase_orders VALUES (
+    5001,
+    'Hari Nepal',
+    DATE '2025-01-10',
+    product_table_type(
+        product_obj(1, 'Laptop', 1, 90000),
+        product_obj(2, 'Mouse', 2, 1500)
+    )
+);
