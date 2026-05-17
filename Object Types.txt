@@ -155,3 +155,30 @@ INSERT INTO purchase_orders VALUES (
         product_obj(2, 'Mouse', 2, 1500)
     )
 );
+
+Inserting into Object Columns
+
+INSERT INTO sites(sites_id,addess)
+value(3,address_types('22 PARK LANE,'asdfghjk'))
+
+INSERT INTO addresses(street,city,country)
+VALUES ('11 HIGHWAY','NORTHAMPTON','UK');
+
+Inserting eg;
+INSERTING INTO students(students_id,address)
+SELECT 1235,REF(a)
+FROM address a
+WHERE street = '67 KENSINGTON AVENUE';
+
+
+
+UPDATE instructors SET address = (
+	SLECT address a
+	where 
+)
+
+
+
+Inserting with Multidimensional VArrays
+Insert INTO table_name(column_name,column_rate)
+
