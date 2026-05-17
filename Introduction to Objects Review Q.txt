@@ -1,0 +1,18 @@
+Introduction to Objects
+Review Question and answer
+
+What is a primary key in another table called?
+	- Foreign Key
+2. How many primary and foreign keys can a table have?
+	- 1 pk and one or more fk
+3. What does DDL stand for?
+	- Data Definition Languages
+4. In a purely relational database what type of data is stored ?
+	- Relations(Tables)
+5. What does UDT stand for?
+	- User Define Type
+6. The Relational Model(RM) is 2D, how many dimensions can the ERM go to? 
+	- RM -> Fixed 2D tables but,
+	- ERM -> n-dimensional (can go beyond 2D)
+7. Which are the 4 UDTs we’re going to cover in this module?
+	- Object Type, VARRAY, Nested Tables, REF
