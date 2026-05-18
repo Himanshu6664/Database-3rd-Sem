@@ -1,0 +1,43 @@
+Object Definition
+		
+		Mini Quiz
+
+Which of the following will need a \?
+Object type definition
+Object table definition
+Relational table definition
+1 and 2 only - ans
+All of the above
+
+2. Which of the following store data?
+
+	Object type
+Object table
+Relational table
+2 and 3 only - ans
+All of the above
+
+3. Which is the odd one out?
+CREATE OR REPLACE TABLE sites( - ans
+CREATE OR REPLACE address_type AS OBJECT
+CREATE TABLE person_address OF address_type
+
+4. What are the two types of objects?
+object type
+Collection type - VARRAY and NESTED
+
+5. What do you call an ERD that includes objects?
+Object Relational ERD
+
+6. What is the additional syntax needed at the end of a object definition?
+/ (forward slash)
+
+7. Why is the additional syntax needed?
+The additional syntax is needed to execute(compile) the object definition  in SQL*plus
+compile and store the object in the database
+
+8. Why can you include ‘or replace’ in a type definition ?
+OR REPLACE is include in the type definition so that that an existing type can be update without dropping it first.
+
+9. What information will be displayed if you query a ref column using the traditional style?
+Internal object identifier(OID) or Pointer
